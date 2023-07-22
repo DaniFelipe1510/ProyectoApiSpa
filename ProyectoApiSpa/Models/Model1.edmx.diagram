@@ -10,13 +10,12 @@
         <EntityTypeShape EntityType="SPADBModel.Reserva" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="7.125" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.sysdiagrams" Width="1.5" PointX="11.5" PointY="5.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="7.125" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="9.125" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Productos" ManuallyRouted="false" />
-        <AssociationConnector Association="SPADBModel.FK_Usuario_Carrito" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_Usuario_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.Atiende" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.Incluye" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Carrito_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
