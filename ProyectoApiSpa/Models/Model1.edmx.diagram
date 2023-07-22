@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="94e66982cdce429c9bb6ad3e46233b32" Name="Diagram1">
+        <EntityTypeShape EntityType="SPADBModel.Cliente" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Empleado" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Especialidad" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Inventario" Width="1.5" PointX="1.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Productos" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Reserva" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Atiende" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SPADBModel.FK_Atiende_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Atiende_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Empleado_Especialidad" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Empleado_Productos" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Productos_Inventario" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Atiende_Reserva" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.Incluye" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
