@@ -4,18 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e684ae1752bf4cedbc956443bb860b54" Name="Diagram1">
-        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Productos" Width="1.5" PointX="0.625" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="8266324b8c2049a49acc121a9463c1cc" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="8" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Productos" Width="1.5" PointX="9" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SPADBModel.Reserva" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="7.125" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="9.125" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="3.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="9.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Productos" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Usuario_Carrito" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_Usuario_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.Atiende" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.Incluye" ManuallyRouted="false" />
-        <AssociationConnector Association="SPADBModel.FK_Carrito_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -25,6 +25,7 @@ namespace ProyectoApiSpa.Models
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
         public double Precio { get; set; }
+        public string Imagen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }

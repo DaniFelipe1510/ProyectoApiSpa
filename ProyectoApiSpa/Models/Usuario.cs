@@ -18,7 +18,6 @@ namespace ProyectoApiSpa.Models
         public Usuario()
         {
             this.Reserva = new HashSet<Reserva>();
-            this.Carrito1 = new HashSet<Carrito>();
         }
     
         public long IdUsuario { get; set; }
@@ -27,12 +26,10 @@ namespace ProyectoApiSpa.Models
         public string Contrasenna { get; set; }
         public string Identificacion { get; set; }
         public int Rol { get; set; }
-        public bool Estado { get; set; }
     
+        public virtual Carrito Carrito { get; set; }
         public virtual Rol Rol1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reserva> Reserva { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carrito> Carrito1 { get; set; }
     }
 }

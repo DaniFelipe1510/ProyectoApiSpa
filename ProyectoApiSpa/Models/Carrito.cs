@@ -20,6 +20,6 @@ namespace ProyectoApiSpa.Models
         public System.DateTime FechaCarrito { get; set; }
     
         public virtual Productos Productos { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
