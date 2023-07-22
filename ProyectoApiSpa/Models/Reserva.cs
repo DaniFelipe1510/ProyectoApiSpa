@@ -17,7 +17,7 @@ namespace ProyectoApiSpa.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Reserva()
         {
-            this.Atiende = new HashSet<Atiende>();
+            this.Usuario = new HashSet<Usuario>();
             this.Servicio = new HashSet<Servicio>();
         }
     
@@ -28,7 +28,7 @@ namespace ProyectoApiSpa.Models
         public int Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Atiende> Atiende { get; set; }
+        public virtual ICollection<Usuario> Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servicio> Servicio { get; set; }
     }

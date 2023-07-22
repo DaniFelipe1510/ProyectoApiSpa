@@ -14,13 +14,19 @@ namespace ProyectoApiSpa.Models
     
     public partial class Productos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Productos()
+        {
+            this.Carrito = new HashSet<Carrito>();
+        }
+    
         public long IDProducto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
         public double Precio { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Inventario Inventario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carrito> Carrito { get; set; }
     }
 }

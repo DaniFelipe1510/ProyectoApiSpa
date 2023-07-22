@@ -12,14 +12,14 @@ namespace ProyectoApiSpa.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Atiende
+    public partial class Carrito
     {
-        public long ID_Empleado { get; set; }
-        public long ID_Cliente { get; set; }
-        public long ID_Reserva { get; set; }
+        public long IdCarrito { get; set; }
+        public long IdUsuario { get; set; }
+        public long IdProducto { get; set; }
+        public System.DateTime FechaCarrito { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
-        public virtual Empleado Empleado { get; set; }
-        public virtual Reserva Reserva { get; set; }
+        public virtual Productos Productos { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

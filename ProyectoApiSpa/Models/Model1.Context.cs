@@ -27,16 +27,13 @@ namespace ProyectoApiSpa.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Cliente> Cliente { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Especialidad> Especialidad { get; set; }
-        public virtual DbSet<Inventario> Inventario { get; set; }
+        public virtual DbSet<Carrito> Carrito { get; set; }
         public virtual DbSet<Productos> Productos { get; set; }
         public virtual DbSet<Reserva> Reserva { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Servicio> Servicio { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<Atiende> Atiende { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

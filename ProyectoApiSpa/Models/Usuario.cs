@@ -14,10 +14,22 @@ namespace ProyectoApiSpa.Models
     
     public partial class Usuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuario()
+        {
+            this.Reserva = new HashSet<Reserva>();
+        }
+    
         public long IdUsuario { get; set; }
-        public string Identificacion { get; set; }
         public string Nombre { get; set; }
-        public string CorreoElectronico { get; set; }
+        public string Correo { get; set; }
         public string Contrasenna { get; set; }
+        public string Identificacion { get; set; }
+        public int Rol { get; set; }
+    
+        public virtual Carrito Carrito { get; set; }
+        public virtual Rol Rol1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reserva> Reserva { get; set; }
     }
 }

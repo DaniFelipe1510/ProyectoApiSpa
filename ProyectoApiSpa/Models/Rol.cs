@@ -12,22 +12,18 @@ namespace ProyectoApiSpa.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Rol
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Empleado()
+        public Rol()
         {
-            this.Atiende = new HashSet<Atiende>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
-        public long IDEmpleado { get; set; }
-        public string NombreEmpleado { get; set; }
-        public string ApellidoEmpleado { get; set; }
-        public int Especialidad { get; set; }
+        public int IdRol { get; set; }
+        public string Rol1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Atiende> Atiende { get; set; }
-        public virtual Especialidad Especialidad1 { get; set; }
-        public virtual Productos Productos { get; set; }
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }
