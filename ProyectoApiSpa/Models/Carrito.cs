@@ -15,11 +15,11 @@ namespace ProyectoApiSpa.Models
     public partial class Carrito
     {
         public long IdCarrito { get; set; }
-        public long IdUsuario { get; set; }
         public long IdProducto { get; set; }
+        public long IdUsuario { get; set; }
         public System.DateTime FechaCarrito { get; set; }
     
-        public virtual Productos Productos { get; set; }
+        public virtual Producto Producto { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

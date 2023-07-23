@@ -26,10 +26,8 @@ namespace ProyectoApiSpa.Models
         }
     
         public virtual DbSet<Carrito> Carrito { get; set; }
-        public virtual DbSet<Productos> Productos { get; set; }
-        public virtual DbSet<Reserva> Reserva { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
-        public virtual DbSet<Servicio> Servicio { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

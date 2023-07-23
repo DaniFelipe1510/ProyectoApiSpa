@@ -34,7 +34,7 @@ namespace ProyectoApiSpa.Controllers
                                  x.Estado,
                                  x.Rol,
                                  x.IdUsuario,
-                                 y.NombreRol
+                                 y.Rol1
                              }).FirstOrDefault();
 
                 if (datos != null)
@@ -51,7 +51,7 @@ namespace ProyectoApiSpa.Controllers
                     res.Estado = datos.Estado;
                     res.Rol = datos.Rol;
                     res.IdUsuario = datos.IdUsuario;
-                    res.NombreRol = datos.NombreRol;
+                    res.Rol = datos.Rol;
                     return res;
                 }
 
@@ -63,7 +63,7 @@ namespace ProyectoApiSpa.Controllers
              
         
 
-        [HttpPost]
+       /* [HttpPost]
         [Route("api/RegistrarUsuario")]
         public int RegistrarUsuario(UsuarioEnt entidad)
         {
@@ -78,7 +78,7 @@ namespace ProyectoApiSpa.Controllers
             }
 
 
-        }
+        }*/
     /*
         [HttpPost]
         [Route("api/RecuperarContrasenna")]

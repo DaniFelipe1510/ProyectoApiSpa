@@ -11,14 +11,14 @@ namespace ProyectoApiSpa.Controllers
 {
     public class CarritoController : ApiController
     {
-       /* [HttpGet]
+        [HttpGet]
         [Route("api/ConsultarCursoCarrito")]
         public List<CarritoEnt> ConsultarCursoCarrito(long q)
         {
             using (var bd = new SPADBEntities())
             {
                 var datos = (from x in bd.Carrito
-                             join y in bd.Productos on x.IdProducto equals y.IdProducto
+                             join y in bd.Producto on x.IdProducto equals y.IdProducto
                              where x.IdUsuario == q
                              select new
                              {
@@ -64,6 +64,6 @@ namespace ProyectoApiSpa.Controllers
                 return bd.SaveChanges();
             }
         }
-       */
+       
     }
 }

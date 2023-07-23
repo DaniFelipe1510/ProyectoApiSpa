@@ -17,19 +17,21 @@ namespace ProyectoApiSpa.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Reserva = new HashSet<Reserva>();
+            this.Carrito = new HashSet<Carrito>();
         }
     
         public long IdUsuario { get; set; }
-        public string Nombre { get; set; }
         public string Correo { get; set; }
         public string Contrasenna { get; set; }
         public string Identificacion { get; set; }
+        public string Nombre { get; set; }
+        public bool Estado { get; set; }
         public int Rol { get; set; }
+        public Nullable<bool> ClaveTemporal { get; set; }
+        public Nullable<System.DateTime> Caducidad { get; set; }
     
-        public virtual Carrito Carrito { get; set; }
-        public virtual Rol Rol1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reserva> Reserva { get; set; }
+        public virtual ICollection<Carrito> Carrito { get; set; }
+        public virtual Rol Rol1 { get; set; }
     }
 }

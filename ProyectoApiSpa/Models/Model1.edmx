@@ -5,151 +5,67 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="SPADBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'SPADB.dbo.Atiende' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="Atiende">
-          <Key>
-            <PropertyRef Name="IdUsuario" />
-            <PropertyRef Name="IdReserva" />
-          </Key>
-          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
-          <Property Name="IdReserva" Type="bigint" Nullable="false" />
-        </EntityType>
         <EntityType Name="Carrito">
           <Key>
             <PropertyRef Name="IdCarrito" />
           </Key>
-          <Property Name="IdCarrito" Type="bigint" Nullable="false" />
-          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="IdCarrito" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdProducto" Type="bigint" Nullable="false" />
-          <Property Name="FechaCarrito" Type="date" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="FechaCarrito" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="Incluye">
+        <EntityType Name="Producto">
           <Key>
-            <PropertyRef Name="ID_ReservaI" />
-            <PropertyRef Name="ID_ServicioI" />
+            <PropertyRef Name="IdProducto" />
           </Key>
-          <Property Name="ID_ReservaI" Type="bigint" Nullable="false" />
-          <Property Name="ID_ServicioI" Type="bigint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Productos">
-          <Key>
-            <PropertyRef Name="IDProducto" />
-          </Key>
-          <Property Name="IDProducto" Type="bigint" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Descripcion" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdProducto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
-          <Property Name="Precio" Type="float" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="2500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Reserva">
-          <Key>
-            <PropertyRef Name="IDReserva" />
-          </Key>
-          <Property Name="IDReserva" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fecha" Type="date" Nullable="false" />
-          <Property Name="Hora" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Duracion" Type="char" MaxLength="50" Nullable="false" />
-          <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="IdRol" />
           </Key>
-          <Property Name="IdRol" Type="int" Nullable="false" />
-          <Property Name="Rol" Type="nchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Servicio">
-          <Key>
-            <PropertyRef Name="IDServicio" />
-          </Key>
-          <Property Name="IDServicio" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="Descripcion" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Precio" Type="float" Nullable="false" />
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Correo" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Contrasenna" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Identificacion" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contrasenna" Type="varchar(max)" Nullable="false" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="ClaveTemporal" Type="bit" />
+          <Property Name="Caducidad" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Atiende_Reserva">
-          <End Role="Reserva" Type="Self.Reserva" Multiplicity="1" />
-          <End Role="Atiende" Type="Self.Atiende" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reserva">
-              <PropertyRef Name="IDReserva" />
-            </Principal>
-            <Dependent Role="Atiende">
-              <PropertyRef Name="IdReserva" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atiende_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Atiende" Type="Self.Atiende" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Atiende">
-              <PropertyRef Name="IdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carrito_Productos">
-          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+        <Association Name="FK_Carrito_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
           <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Productos">
-              <PropertyRef Name="IDProducto" />
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
             </Principal>
             <Dependent Role="Carrito">
               <PropertyRef Name="IdProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Incluye_Reserva">
-          <End Role="Reserva" Type="Self.Reserva" Multiplicity="1" />
-          <End Role="Incluye" Type="Self.Incluye" Multiplicity="*" />
+        <Association Name="FK_Carrito_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Reserva">
-              <PropertyRef Name="IDReserva" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
             </Principal>
-            <Dependent Role="Incluye">
-              <PropertyRef Name="ID_ReservaI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Incluye_Servicio">
-          <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
-          <End Role="Incluye" Type="Self.Incluye" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicio">
-              <PropertyRef Name="IDServicio" />
-            </Principal>
-            <Dependent Role="Incluye">
-              <PropertyRef Name="ID_ServicioI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_Carrito">
-          <End Role="Carrito" Type="Self.Carrito" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Carrito">
-              <PropertyRef Name="IdCarrito" />
-            </Principal>
-            <Dependent Role="Usuario">
+            <Dependent Role="Carrito">
               <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
@@ -168,46 +84,16 @@ advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna
         </Association>
         <EntityContainer Name="SPADBModelStoreContainer">
           <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Reserva" EntityType="Self.Reserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Servicio" EntityType="Self.Servicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Atiende" EntityType="Self.Atiende" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Atiende].[IdUsuario] AS [IdUsuario], 
-    [Atiende].[IdReserva] AS [IdReserva]
-    FROM [dbo].[Atiende] AS [Atiende]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Incluye" EntityType="Self.Incluye" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Incluye].[ID_ReservaI] AS [ID_ReservaI], 
-    [Incluye].[ID_ServicioI] AS [ID_ServicioI]
-    FROM [dbo].[Incluye] AS [Incluye]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Atiende_Reserva" Association="Self.FK_Atiende_Reserva">
-            <End Role="Reserva" EntitySet="Reserva" />
-            <End Role="Atiende" EntitySet="Atiende" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atiende_Usuario" Association="Self.FK_Atiende_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Atiende" EntitySet="Atiende" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carrito_Productos" Association="Self.FK_Carrito_Productos">
-            <End Role="Productos" EntitySet="Productos" />
+          <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
+            <End Role="Producto" EntitySet="Producto" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
-          <AssociationSet Name="FK_Incluye_Reserva" Association="Self.FK_Incluye_Reserva">
-            <End Role="Reserva" EntitySet="Reserva" />
-            <End Role="Incluye" EntitySet="Incluye" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Incluye_Servicio" Association="Self.FK_Incluye_Servicio">
-            <End Role="Servicio" EntitySet="Servicio" />
-            <End Role="Incluye" EntitySet="Incluye" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Carrito" Association="Self.FK_Usuario_Carrito">
-            <End Role="Carrito" EntitySet="Carrito" />
+          <AssociationSet Name="FK_Carrito_Usuario" Association="Self.FK_Carrito_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
             <End Role="Rol" EntitySet="Rol" />
@@ -223,89 +109,69 @@ advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna
           <Key>
             <PropertyRef Name="IdCarrito" />
           </Key>
-          <Property Name="IdCarrito" Type="Int64" Nullable="false" />
-          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="IdCarrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdProducto" Type="Int64" Nullable="false" />
-          <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Carrito_Productos" FromRole="Carrito" ToRole="Productos" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Carrito" FromRole="Carrito" ToRole="Usuario" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Carrito_Usuario" FromRole="Carrito" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Productos">
+        <EntityType Name="Producto">
           <Key>
-            <PropertyRef Name="IDProducto" />
+            <PropertyRef Name="IdProducto" />
           </Key>
-          <Property Name="IDProducto" Type="Int64" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdProducto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="Precio" Type="Double" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Imagen" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Productos" FromRole="Productos" ToRole="Carrito" />
-        </EntityType>
-        <EntityType Name="Reserva">
-          <Key>
-            <PropertyRef Name="IDReserva" />
-          </Key>
-          <Property Name="IDReserva" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Duracion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.Atiende" FromRole="Reserva" ToRole="Usuario" />
-          <NavigationProperty Name="Servicio" Relationship="Self.Incluye" FromRole="Reserva" ToRole="Servicio" />
+          <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="IdRol" />
           </Key>
-          <Property Name="IdRol" Type="Int32" Nullable="false" />
-          <Property Name="Rol1" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Servicio">
-          <Key>
-            <PropertyRef Name="IDServicio" />
-          </Key>
-          <Property Name="IDServicio" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Precio" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Reserva" Relationship="Self.Incluye" FromRole="Servicio" ToRole="Reserva" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Contrasenna" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Identificacion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasenna" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="Rol" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carrito" Relationship="Self.FK_Usuario_Carrito" FromRole="Usuario" ToRole="Carrito" />
+          <Property Name="ClaveTemporal" Type="Boolean" />
+          <Property Name="Caducidad" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Usuario" FromRole="Usuario" ToRole="Carrito" />
           <NavigationProperty Name="Rol1" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
-          <NavigationProperty Name="Reserva" Relationship="Self.Atiende" FromRole="Usuario" ToRole="Reserva" />
         </EntityType>
-        <Association Name="FK_Carrito_Productos">
-          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+        <Association Name="FK_Carrito_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
           <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Productos">
-              <PropertyRef Name="IDProducto" />
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
             </Principal>
             <Dependent Role="Carrito">
               <PropertyRef Name="IdProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuario_Carrito">
-          <End Role="Carrito" Type="Self.Carrito" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+        <Association Name="FK_Carrito_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Carrito">
-              <PropertyRef Name="IdCarrito" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
             </Principal>
-            <Dependent Role="Usuario">
+            <Dependent Role="Carrito">
               <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
@@ -322,40 +188,22 @@ advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Atiende">
-          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
-        </Association>
-        <Association Name="Incluye">
-          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
-          <End Role="Servicio" Type="Self.Servicio" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="SPADBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Carrito" EntityType="Self.Carrito" />
-          <EntitySet Name="Productos" EntityType="Self.Productos" />
-          <EntitySet Name="Reserva" EntityType="Self.Reserva" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
-          <EntitySet Name="Servicio" EntityType="Self.Servicio" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_Carrito_Productos" Association="Self.FK_Carrito_Productos">
-            <End Role="Productos" EntitySet="Productos" />
+          <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
+            <End Role="Producto" EntitySet="Producto" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Carrito" Association="Self.FK_Usuario_Carrito">
-            <End Role="Carrito" EntitySet="Carrito" />
+          <AssociationSet Name="FK_Carrito_Usuario" Association="Self.FK_Carrito_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="Atiende" Association="Self.Atiende">
-            <End Role="Reserva" EntitySet="Reserva" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="Incluye" Association="Self.Incluye">
-            <End Role="Reserva" EntitySet="Reserva" />
-            <End Role="Servicio" EntitySet="Servicio" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -368,32 +216,21 @@ advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna
             <EntityTypeMapping TypeName="SPADBModel.Carrito">
               <MappingFragment StoreEntitySet="Carrito">
                 <ScalarProperty Name="IdCarrito" ColumnName="IdCarrito" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Productos">
-            <EntityTypeMapping TypeName="SPADBModel.Productos">
-              <MappingFragment StoreEntitySet="Productos">
-                <ScalarProperty Name="IDProducto" ColumnName="IDProducto" />
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="SPADBModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reserva">
-            <EntityTypeMapping TypeName="SPADBModel.Reserva">
-              <MappingFragment StoreEntitySet="Reserva">
-                <ScalarProperty Name="IDReserva" ColumnName="IDReserva" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -405,44 +242,21 @@ advertencia 6002: La tabla o vista 'SPADB.dbo.Incluye' no tiene definida ninguna
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Servicio">
-            <EntityTypeMapping TypeName="SPADBModel.Servicio">
-              <MappingFragment StoreEntitySet="Servicio">
-                <ScalarProperty Name="IDServicio" ColumnName="IDServicio" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="SPADBModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
                 <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="ClaveTemporal" ColumnName="ClaveTemporal" />
+                <ScalarProperty Name="Caducidad" ColumnName="Caducidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Atiende" TypeName="SPADBModel.Atiende" StoreEntitySet="Atiende">
-            <EndProperty Name="Reserva">
-              <ScalarProperty Name="IDReserva" ColumnName="IdReserva" />
-            </EndProperty>
-            <EndProperty Name="Usuario">
-              <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Incluye" TypeName="SPADBModel.Incluye" StoreEntitySet="Incluye">
-            <EndProperty Name="Reserva">
-              <ScalarProperty Name="IDReserva" ColumnName="ID_ReservaI" />
-            </EndProperty>
-            <EndProperty Name="Servicio">
-              <ScalarProperty Name="IDServicio" ColumnName="ID_ServicioI" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

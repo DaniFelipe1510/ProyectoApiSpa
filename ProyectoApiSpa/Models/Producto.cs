@@ -12,19 +12,19 @@ namespace ProyectoApiSpa.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Productos
+    public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Productos()
+        public Producto()
         {
             this.Carrito = new HashSet<Carrito>();
         }
     
-        public long IDProducto { get; set; }
+        public long IdProducto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
-        public double Precio { get; set; }
+        public decimal Precio { get; set; }
         public string Imagen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

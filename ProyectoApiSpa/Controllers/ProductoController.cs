@@ -11,13 +11,13 @@ namespace ProyectoApiSpa.Controllers
 {
     public class ProductoController : ApiController
     {
-       /* [HttpGet]
+        [HttpGet]
         [Route("api/ConsultarCursos")]
         public List<ProductoEnt> ConsultarCursos()
         {
             using (var bd = new SPADBEntities())
             {
-                var datos = (from x in bd.Productos
+                var datos = (from x in bd.Producto
                              select x).ToList();
 
                 if (datos.Count > 0)
@@ -41,6 +41,6 @@ namespace ProyectoApiSpa.Controllers
 
                 return new List<ProductoEnt>();
             }
-        }*/
+        }
     }
 }
