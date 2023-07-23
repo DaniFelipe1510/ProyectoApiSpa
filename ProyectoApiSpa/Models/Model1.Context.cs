@@ -30,7 +30,6 @@ namespace ProyectoApiSpa.Models
         public virtual DbSet<Reserva> Reserva { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Servicio> Servicio { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }
