@@ -12,6 +12,8 @@ namespace ProyectoApiSpa.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SPADBEntities : DbContext
     {
@@ -29,5 +31,34 @@ namespace ProyectoApiSpa.Models
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+    
+        public virtual int RegistrarUsuario(string correo, string contrasenna, string identificacion, string nombre, Nullable<bool> estado, Nullable<int> rol)
+        {
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var contrasennaParameter = contrasenna != null ?
+                new ObjectParameter("Contrasenna", contrasenna) :
+                new ObjectParameter("Contrasenna", typeof(string));
+    
+            var identificacionParameter = identificacion != null ?
+                new ObjectParameter("Identificacion", identificacion) :
+                new ObjectParameter("Identificacion", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(bool));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("Rol", rol) :
+                new ObjectParameter("Rol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarUsuario", correoParameter, contrasennaParameter, identificacionParameter, nombreParameter, estadoParameter, rolParameter);
+        }
     }
 }

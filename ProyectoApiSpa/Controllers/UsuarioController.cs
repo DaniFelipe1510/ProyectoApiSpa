@@ -63,7 +63,7 @@ namespace ProyectoApiSpa.Controllers
              
         
 
-       /* [HttpPost]
+       [HttpPost]
         [Route("api/RegistrarUsuario")]
         public int RegistrarUsuario(UsuarioEnt entidad)
         {
@@ -78,7 +78,7 @@ namespace ProyectoApiSpa.Controllers
             }
 
 
-        }*/
+        }
     
         [HttpPost]
         [Route("api/RecuperarContrasenna")]
