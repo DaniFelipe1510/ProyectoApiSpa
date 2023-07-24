@@ -79,27 +79,27 @@ namespace ProyectoApiSpa.Controllers
 
 
         }*/
-    /*
+    
         [HttpPost]
         [Route("api/RecuperarContrasenna")]
         public bool RecuperarContrasenna(UsuarioEnt entidad)
         {
-             using (var bd = new KN_ProyectoEntities())
+             using (var bd = new SPADBEntities())
              {
                 var datos = (from x in bd.Usuario
-                             where x.CorreoElectronico == entidad.CorreoElectronico
+                             where x.Correo == entidad.Correo
                                 && x.Estado == true
                              select x).FirstOrDefault();
                 if(datos != null)
                 {
                     string password = util.CreatePassword();
                     datos.Contrasenna = util.Encrypt(password);
-                    datos.ClaveTemporal = true;
+                   // datos.ClaveTemporal = true;
                     datos.Caducidad = DateTime.Now.AddMinutes(30);
                     bd.SaveChanges();
 
                     string mensaje = "Estimado(a) " + datos.Nombre + ". Se ha generado la siguiente contraseña temporal: " + password;
-                    util.SendEmail(datos.CorreoElectronico, "Recuperar Contraseña", mensaje);
+                    util.SendEmail(datos.Correo, "Recuperar Contraseña", mensaje);
                     return true;
 
                 }
@@ -111,7 +111,7 @@ namespace ProyectoApiSpa.Controllers
           
 
         }
-        */
+        
 
     }
 }
