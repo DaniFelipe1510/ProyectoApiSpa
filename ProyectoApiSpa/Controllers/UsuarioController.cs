@@ -93,14 +93,14 @@ namespace ProyectoApiSpa.Controllers
                 if(datos != null)
                 {
                     string password = util.CreatePassword();
-                    datos.Contrasenna = util.Encrypt(password);
+                   // datos.Contrasenna = util.Encrypt(password);
                    // datos.ClaveTemporal = true;
-                    datos.Caducidad = DateTime.Now.AddMinutes(30);
-                    bd.SaveChanges();
+                    //datos.Caducidad = DateTime.Now.AddMinutes(30);
+                    //bd.SaveChanges();
 
                     string mensaje = "Estimado(a) " + datos.Nombre + ". Se ha generado la siguiente contraseña temporal: " + password;
                     util.SendEmail(datos.Correo, "Recuperar Contraseña", mensaje);
-                    return true;
+                    //return true;
 
                 }
                 
