@@ -76,7 +76,7 @@ namespace ProyectoApiSpa.Controllers
                                    , entidad.Estado
                                    , entidad.Rol);
             }
-
+            
 
         }
     
