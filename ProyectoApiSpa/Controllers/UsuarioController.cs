@@ -51,7 +51,7 @@ namespace ProyectoApiSpa.Controllers
                     res.Estado = datos.Estado;
                     res.Rol = datos.Rol;
                     res.IdUsuario = datos.IdUsuario;
-                    res.Rol = datos.Rol;
+                    res.NombreRol = datos.Rol1;
                     return res;
                 }
 
