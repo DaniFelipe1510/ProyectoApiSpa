@@ -55,13 +55,28 @@ namespace ProyectoApiSpa.Controllers
         {
             using (var bd = new SPADBEntities())
             {
-                Carrito tabla = new Carrito();
-                tabla.IdUsuario = entidad.IdUsuario;
-                tabla.IdProducto = entidad.IdProducto;
-                tabla.FechaCarrito = entidad.FechaCarrito;
+                //se busca el producto para hacer el if
+                Producto producto = bd.Producto.FirstOrDefault(p => p.IdProducto == entidad.IdProducto);
 
-                bd.Carrito.Add(tabla);
-                return bd.SaveChanges();
+                if (producto != null && producto.Cantidad > 0)
+                {
+                    Carrito tabla = new Carrito
+                    {
+                        IdUsuario = entidad.IdUsuario,
+                        IdProducto = entidad.IdProducto,
+                        FechaCarrito = entidad.FechaCarrito
+                    };
+
+                    bd.Carrito.Add(tabla);
+                    producto.Cantidad--;//le resto en la BD la cantidad al producto
+                    return bd.SaveChanges();
+                }
+                else
+                {
+                    
+                    return 0;
+                }
+              
             }
         }
        
