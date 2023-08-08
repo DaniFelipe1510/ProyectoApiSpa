@@ -13,6 +13,7 @@
           <Property Name="IdProducto" Type="bigint" Nullable="false" />
           <Property Name="IdUsuario" Type="bigint" Nullable="false" />
           <Property Name="FechaCarrito" Type="datetime" Nullable="false" />
+          <Property Name="CantidadArticulos" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -121,6 +122,7 @@
           <Property Name="IdProducto" Type="Int64" Nullable="false" />
           <Property Name="IdUsuario" Type="Int64" Nullable="false" />
           <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CantidadArticulos" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Producto" Relationship="Self.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Carrito_Usuario" FromRole="Carrito" ToRole="Usuario" />
         </EntityType>
@@ -235,6 +237,7 @@
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
+                <ScalarProperty Name="CantidadArticulos" ColumnName="CantidadArticulos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -18,6 +18,7 @@ namespace ProyectoApiSpa.Models
         public long IdProducto { get; set; }
         public long IdUsuario { get; set; }
         public System.DateTime FechaCarrito { get; set; }
+        public Nullable<decimal> CantidadArticulos { get; set; }
     
         public virtual Producto Producto { get; set; }
         public virtual Usuario Usuario { get; set; }
