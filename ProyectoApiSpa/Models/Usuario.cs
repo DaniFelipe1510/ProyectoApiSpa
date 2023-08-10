@@ -18,6 +18,7 @@ namespace ProyectoApiSpa.Models
         public Usuario()
         {
             this.Carrito = new HashSet<Carrito>();
+            this.ProductoUsuario = new HashSet<ProductoUsuario>();
         }
     
         public long IdUsuario { get; set; }
@@ -33,5 +34,7 @@ namespace ProyectoApiSpa.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
         public virtual Rol Rol1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductoUsuario> ProductoUsuario { get; set; }
     }
 }

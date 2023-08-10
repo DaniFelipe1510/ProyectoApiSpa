@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SPADBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SPADBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Carrito">
           <Key>
             <PropertyRef Name="IdCarrito" />
@@ -25,6 +25,17 @@
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="2500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoUsuario">
+          <Key>
+            <PropertyRef Name="IdProductoUsuario" />
+          </Key>
+          <Property Name="IdProductoUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProducto" Type="bigint" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="FechaPago" Type="datetime" Nullable="false" />
+          <Property Name="CantidadProductos" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PrecioPago" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -71,6 +82,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductoUsuario_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoUsuario" Type="Self.ProductoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="ProductoUsuario">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ProductoUsuario" Type="Self.ProductoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="ProductoUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Usuario_Rol">
           <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -94,6 +129,7 @@
         <EntityContainer Name="SPADBModelStoreContainer">
           <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoUsuario" EntityType="Self.ProductoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
@@ -104,13 +140,20 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductoUsuario_Producto" Association="Self.FK_ProductoUsuario_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoUsuario" EntitySet="ProductoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoUsuario_Usuario" Association="Self.FK_ProductoUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ProductoUsuario" EntitySet="ProductoUsuario" />
+          </AssociationSet>
           <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SPADBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -137,6 +180,7 @@
           <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Imagen" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
+          <NavigationProperty Name="ProductoUsuario" Relationship="SPADBModel.FK_ProductoUsuario_Producto" FromRole="Producto" ToRole="ProductoUsuario" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -161,6 +205,7 @@
           <Property Name="Caducidad" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Usuario" FromRole="Usuario" ToRole="Carrito" />
           <NavigationProperty Name="Rol1" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="ProductoUsuario" Relationship="SPADBModel.FK_ProductoUsuario_Usuario" FromRole="Usuario" ToRole="ProductoUsuario" />
         </EntityType>
         <Association Name="FK_Carrito_Producto">
           <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
@@ -223,7 +268,53 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="Rol" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ProductoUsuario" EntityType="SPADBModel.ProductoUsuario" />
+          <AssociationSet Name="FK_ProductoUsuario_Producto" Association="SPADBModel.FK_ProductoUsuario_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoUsuario" EntitySet="ProductoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoUsuario_Usuario" Association="SPADBModel.FK_ProductoUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ProductoUsuario" EntitySet="ProductoUsuario" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ProductoUsuario">
+          <Key>
+            <PropertyRef Name="IdProductoUsuario" />
+          </Key>
+          <Property Name="IdProductoUsuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProducto" Type="Int64" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CantidadProductos" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PrecioPago" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Producto" Relationship="SPADBModel.FK_ProductoUsuario_Producto" FromRole="ProductoUsuario" ToRole="Producto" />
+          <NavigationProperty Name="Usuario" Relationship="SPADBModel.FK_ProductoUsuario_Usuario" FromRole="ProductoUsuario" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_ProductoUsuario_Producto">
+          <End Type="SPADBModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="SPADBModel.ProductoUsuario" Role="ProductoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="ProductoUsuario">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoUsuario_Usuario">
+          <End Type="SPADBModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SPADBModel.ProductoUsuario" Role="ProductoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="ProductoUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -277,6 +368,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="SPADBModel.Store.RegistrarUsuario" />
+          <EntitySetMapping Name="ProductoUsuario">
+            <EntityTypeMapping TypeName="SPADBModel.ProductoUsuario">
+              <MappingFragment StoreEntitySet="ProductoUsuario">
+                <ScalarProperty Name="PrecioPago" ColumnName="PrecioPago" />
+                <ScalarProperty Name="CantidadProductos" ColumnName="CantidadProductos" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdProductoUsuario" ColumnName="IdProductoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
