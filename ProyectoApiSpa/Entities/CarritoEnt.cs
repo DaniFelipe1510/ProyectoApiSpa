@@ -16,5 +16,7 @@ namespace ProyectoApiSpa.Entities
         public DateTime FechaCarrito { get; set; }
 
         public string Nombre { get; set; }
+
+        public string Descripcion { get; set; }
     }
 }

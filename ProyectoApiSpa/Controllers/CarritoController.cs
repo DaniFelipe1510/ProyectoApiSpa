@@ -27,7 +27,8 @@ namespace ProyectoApiSpa.Controllers
                                  x.IdUsuario,
                                  x.CantidadArticulos,
                                  y.Precio,
-                                 y.Nombre
+                                 y.Nombre,
+                                 y.Descripcion
                              }).ToList();
 
                 //var datos = (from x in bd.Carrito
@@ -55,7 +56,8 @@ namespace ProyectoApiSpa.Controllers
                             IdUsuario = item.IdUsuario,
                             CantidadArticulos = (decimal)item.CantidadArticulos,
                             Precio = item.Precio,
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre,
+                            Descripcion = item.Descripcion
                         });
                     }
 
@@ -65,8 +67,54 @@ namespace ProyectoApiSpa.Controllers
                 return new List<CarritoEnt>();
             }
         }
-        
-    
+
+        [HttpGet]
+        [Route("api/ConsultarProductosUsuario")]
+        public List<CarritoEnt> ConsultarProductosUsuario(long q)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.ProductoUsuario
+                             join y in bd.Producto on x.IdProducto equals y.IdProducto
+                             where x.IdUsuario == q
+                             select new
+                             {
+                                 x.IdProductoUsuario,
+                                 x.IdProducto,
+                                 x.IdUsuario,
+                                 x.PrecioPago,
+                                 x.FechaPago,
+                                 x.CantidadProductos,
+                                 y.Nombre,
+                                 y.Descripcion
+                             }).ToList();
+
+                if (datos.Count > 0)
+                {
+                    List<CarritoEnt> res = new List<CarritoEnt>();
+                    foreach (var item in datos)
+                    {
+                        res.Add(new CarritoEnt
+                        {
+                            IdCarrito = item.IdProductoUsuario,
+                            IdProducto = item.IdProducto,
+                            IdUsuario = item.IdUsuario,
+                            Precio = item.PrecioPago,
+                            Nombre = item.Nombre,
+                            CantidadArticulos = (decimal)item.CantidadProductos,
+                            FechaCarrito = item.FechaPago,
+                            Descripcion = item.Descripcion
+                        });
+                    }
+
+                    return res;
+                }
+
+                return new List<CarritoEnt>();
+            }
+        }
+
+
 
         [HttpPost]
         [Route("api/AgregarCursoCarrito")]
