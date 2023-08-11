@@ -15,6 +15,6 @@ namespace ProyectoApiSpa.Entities
         public string Confirmarcontrasenna { get; set; }
         public string NombreRol { get; set; }
         public bool Estado { get; set; }
-        public int Rol { get; set; }
+        public int IdRol { get; set; }
     }
 }

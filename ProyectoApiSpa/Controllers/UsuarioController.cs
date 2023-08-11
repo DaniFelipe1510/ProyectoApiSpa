@@ -20,7 +20,7 @@ namespace ProyectoApiSpa.Controllers
             using (var bd = new SPADBEntities())
             {
                 var datos = (from x in bd.Usuario
-                             join y in bd.Rol on x.Rol equals y.IdRol
+                             join y in bd.Rol on x.IdRol equals y.IdRol
                              where x.Correo == entidad.Correo
                                 && x.Contrasenna == entidad.Contrasenna
                                 && x.Estado == true
@@ -32,9 +32,9 @@ namespace ProyectoApiSpa.Controllers
                                  x.Identificacion,
                                  x.Nombre,
                                  x.Estado,
-                                 x.Rol,
+                                 x.IdRol,
                                  x.IdUsuario,
-                                 y.Rol1
+                                 y.NombreRol
                              }).FirstOrDefault();
 
                 if (datos != null)
@@ -49,9 +49,9 @@ namespace ProyectoApiSpa.Controllers
                     res.Identificacion = datos.Identificacion;
                     res.Nombre = datos.Nombre;
                     res.Estado = datos.Estado;
-                    res.Rol = datos.Rol;
+                    res.IdRol = datos.IdRol;
                     res.IdUsuario = datos.IdUsuario;
-                    res.NombreRol = datos.Rol1;
+                    res.NombreRol = datos.NombreRol;
                     return res;
                 }
 
@@ -69,13 +69,27 @@ namespace ProyectoApiSpa.Controllers
         {
             using (var bd = new SPADBEntities())
             {
-                return bd.RegistrarUsuario(entidad.Correo
-                                   , entidad.Contrasenna
-                                   , entidad.Identificacion
-                                   , entidad.Nombre
-                                   , entidad.Estado
-                                   , entidad.Rol);
+                Usuario tabla = new Usuario();
+                tabla.Correo = entidad.Correo;
+                tabla.Contrasenna = entidad.Contrasenna;
+                tabla.Identificacion = entidad.Identificacion;
+                tabla.Nombre = entidad.Nombre;
+                tabla.Estado = entidad.Estado;
+                tabla.IdRol = entidad.IdRol;
+
+                bd.Usuario.Add(tabla);
+                return bd.SaveChanges();
+
             }
+            //using (var bd = new SPADBEntities())
+            //{
+            //    return bd.RegistrarUsuario(entidad.Correo
+            //                       , entidad.Contrasenna
+            //                       , entidad.Identificacion
+            //                       , entidad.Nombre
+            //                       , entidad.Estado
+            //                       , entidad.IdRol);
+            //}
             
 
         }

@@ -8,6 +8,6 @@ namespace ProyectoApiSpa.Entities
     public class RolEnt
     {
         public int IdRol { get; set; }
-        public string Rol1 { get; set; }
+        public string NombreRol { get; set; }
     }
 }

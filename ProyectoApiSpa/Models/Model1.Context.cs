@@ -29,11 +29,11 @@ namespace ProyectoApiSpa.Models
     
         public virtual DbSet<Carrito> Carrito { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
+        public virtual DbSet<ProductoUsuario> ProductoUsuario { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<ProductoUsuario> ProductoUsuario { get; set; }
     
-        public virtual int RegistrarUsuario(string correo, string contrasenna, string identificacion, string nombre, Nullable<bool> estado, Nullable<int> rol)
+        public virtual int RegistrarUsuario(string correo, string contrasenna, string identificacion, string nombre, Nullable<bool> estado, Nullable<int> idRol)
         {
             var correoParameter = correo != null ?
                 new ObjectParameter("Correo", correo) :
@@ -55,11 +55,11 @@ namespace ProyectoApiSpa.Models
                 new ObjectParameter("Estado", estado) :
                 new ObjectParameter("Estado", typeof(bool));
     
-            var rolParameter = rol.HasValue ?
-                new ObjectParameter("Rol", rol) :
-                new ObjectParameter("Rol", typeof(int));
+            var idRolParameter = idRol.HasValue ?
+                new ObjectParameter("IdRol", idRol) :
+                new ObjectParameter("IdRol", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarUsuario", correoParameter, contrasennaParameter, identificacionParameter, nombreParameter, estadoParameter, rolParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarUsuario", correoParameter, contrasennaParameter, identificacionParameter, nombreParameter, estadoParameter, idRolParameter);
         }
     }
 }

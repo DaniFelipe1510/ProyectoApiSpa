@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1290eccd8a9449beb9ecc9e918d16d57" Name="Diagram1" ZoomLevel="73">
-        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Producto" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="4102b34a048f436e8aed64222cca590c" Name="Diagram1">
+        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Producto" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.ProductoUsuario" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_Usuario_Rol" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SPADBModel.ProductoUsuario" Width="1.875" PointX="6.125" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Producto" />
-        <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

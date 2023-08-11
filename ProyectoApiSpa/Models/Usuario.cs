@@ -27,14 +27,14 @@ namespace ProyectoApiSpa.Models
         public string Identificacion { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-        public int Rol { get; set; }
+        public int IdRol { get; set; }
         public Nullable<bool> ClaveTemporal { get; set; }
         public Nullable<System.DateTime> Caducidad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
-        public virtual Rol Rol1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductoUsuario> ProductoUsuario { get; set; }
+        public virtual Rol Rol { get; set; }
     }
 }
