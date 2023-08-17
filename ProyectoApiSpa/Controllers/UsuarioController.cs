@@ -1,4 +1,5 @@
-﻿using ProyectoApiSpa.Entities;
+﻿using ProyectoApiSpa.App_Start;
+using ProyectoApiSpa.Entities;
 using ProyectoApiSpa.Models;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,15 @@ using System.Web.Http;
 
 namespace ProyectoApiSpa.Controllers
 {
+    [Authorize]
     public class UsuarioController : ApiController
     {
         
         UtilitariosModel util = new UtilitariosModel();
+        TokenGenerator tokGenerator = new TokenGenerator();
+
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/IniciarSesion")]
         public UsuarioEnt IniciarSesion(UsuarioEnt entidad)
         {
@@ -52,6 +57,8 @@ namespace ProyectoApiSpa.Controllers
                     res.IdRol = datos.IdRol;
                     res.IdUsuario = datos.IdUsuario;
                     res.NombreRol = datos.NombreRol;
+                    res.Token = tokGenerator.GenerateTokenJwt(datos.IdUsuario);
+
                     return res;
                 }
 
@@ -59,11 +66,8 @@ namespace ProyectoApiSpa.Controllers
             }
         }
 
-
-             
-        
-
        [HttpPost]
+        [AllowAnonymous]
         [Route("api/RegistrarUsuario")]
         public int RegistrarUsuario(UsuarioEnt entidad)
         {
@@ -93,8 +97,155 @@ namespace ProyectoApiSpa.Controllers
             
 
         }
-    
+
+
+        [HttpGet]
+        [Route("api/ConsultarUsuarios")]
+        public List<UsuarioEnt> ConsultarUsuarios()
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Usuario
+                             select x).ToList();
+                if (datos.Count > 0)
+                {
+                    List<UsuarioEnt> res = new List<UsuarioEnt>();
+                    foreach (var item in datos)
+                    {
+                        res.Add(new UsuarioEnt
+
+                        {
+                            Correo = item.Correo,
+                            Identificacion = item.Identificacion,
+                            Nombre = item.Nombre,
+                            Estado = item.Estado,
+                            IdRol = item.IdRol,
+                            IdUsuario = item.IdUsuario
+                        });
+                    }
+                    return res;
+                }
+
+                return new List<UsuarioEnt>();
+            }
+
+            /*using (var bd = new KN_ProyectoEntities())
+            {
+                return bd.IniciarSesion(entidad.CorreoElectronico, entidad.Contrasenna).FirstOrDefault();
+            }
+            */
+        }
+
+        [HttpGet]
+        [Route("api/ConsultarUsuario")]
+        public UsuarioEnt ConsultarUsuario(long q)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Usuario
+                             where x.IdUsuario == q
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    UsuarioEnt res = new UsuarioEnt();
+                    res.Correo = datos.Correo;
+                    res.Identificacion = datos.Identificacion;
+                    res.Nombre = datos.Nombre;
+                    res.Estado = datos.Estado;
+                    res.IdRol = datos.IdRol;
+                    res.IdUsuario = datos.IdUsuario;
+
+                    return res;
+
+                }
+
+                return null;
+
+            }
+
+            /*using (var bd = new KN_ProyectoEntities())
+            {
+                return bd.IniciarSesion(entidad.CorreoElectronico, entidad.Contrasenna).FirstOrDefault();
+            }
+            */
+        }
+
+        [HttpGet]
+        [Route("api/ConsultarRoles")]
+        public List<RolEnt> ConsultarRoles()
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Rol
+                             select x).ToList();
+                if (datos.Count > 0)
+                {
+                    List<RolEnt> res = new List<RolEnt>();
+                    foreach (var item in datos)
+                    {
+                        res.Add(new RolEnt
+
+                        {
+                            IdRol = item.IdRol,
+                            NombreRol = item.NombreRol,
+
+                        });
+                    }
+                    return res;
+                }
+
+                return new List<RolEnt>();
+            }
+
+            /*using (var bd = new KN_ProyectoEntities())
+            {
+                return bd.IniciarSesion(entidad.CorreoElectronico, entidad.Contrasenna).FirstOrDefault();
+            }
+            */
+        }
+
+        [HttpPut]
+        [Route("api/EditarUsuario")]
+        public int EditarUsuario(UsuarioEnt entidad)
+        {
+
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Usuario
+                             where x.IdUsuario == entidad.IdUsuario
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    datos.Correo = entidad.Correo;
+                    datos.IdRol = entidad.IdRol;
+                    return bd.SaveChanges();
+                }
+                return 0;
+            }
+        }
+
+        [HttpPut]
+        [Route("api/CambiarEstado")]
+        public int CambiarEstado(UsuarioEnt entidad)
+        {
+
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Usuario
+                             where x.IdUsuario == entidad.IdUsuario
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    var EstadoActual = datos.Estado;
+                    datos.Estado = (EstadoActual == true ? false : true);
+                    return bd.SaveChanges();
+                }
+                return 0;
+            }
+        }
+
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/RecuperarContrasenna")]
         public bool RecuperarContrasenna(UsuarioEnt entidad)
         {

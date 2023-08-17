@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace ProyectoApiSpa.Controllers
 {
+    [Authorize]
     public class CarritoController : ApiController
     {
         [HttpGet]
