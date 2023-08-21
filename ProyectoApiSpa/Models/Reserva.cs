@@ -20,6 +20,7 @@ namespace ProyectoApiSpa.Models
         public System.DateTime Fecha { get; set; }
         public System.TimeSpan Hora { get; set; }
         public decimal PrecioPago { get; set; }
+        public string Cliente { get; set; }
     
         public virtual Servicio Servicio { get; set; }
         public virtual Usuario Usuario { get; set; }

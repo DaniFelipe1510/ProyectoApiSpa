@@ -47,6 +47,7 @@
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
           <Property Name="PrecioPago" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Cliente" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -394,6 +395,7 @@
           <Property Name="PrecioPago" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Servicio" Relationship="SPADBModel.FK_Reserva_Servicio" FromRole="Reserva" ToRole="Servicio" />
           <NavigationProperty Name="Usuario" Relationship="SPADBModel.FK_Reserva_Usuario" FromRole="Reserva" ToRole="Usuario" />
+          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Servicio">
           <Key>
@@ -499,6 +501,7 @@
           <EntitySetMapping Name="Reserva">
             <EntityTypeMapping TypeName="SPADBModel.Reserva">
               <MappingFragment StoreEntitySet="Reserva">
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
                 <ScalarProperty Name="PrecioPago" ColumnName="PrecioPago" />
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
