@@ -37,12 +37,34 @@
           <Property Name="CantidadProductos" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PrecioPago" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="IdReserva" />
+          </Key>
+          <Property Name="IdReserva" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdServicio" Type="bigint" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="PrecioPago" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="IdRol" />
           </Key>
           <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreRol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servicio">
+          <Key>
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdServicio" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Duracion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="2500" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -106,6 +128,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reserva_Servicio">
+          <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Usuario_Rol1">
           <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -130,7 +176,9 @@
           <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoUsuario" EntityType="Self.ProductoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reserva" EntityType="Self.Reserva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicio" EntityType="Self.Servicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
             <End Role="Producto" EntitySet="Producto" />
@@ -147,6 +195,14 @@
           <AssociationSet Name="FK_ProductoUsuario_Usuario" Association="Self.FK_ProductoUsuario_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="ProductoUsuario" EntitySet="ProductoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Servicio" Association="Self.FK_Reserva_Servicio">
+            <End Role="Servicio" EntitySet="Servicio" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Usuario" Association="Self.FK_Reserva_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Reserva" EntitySet="Reserva" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_Rol1" Association="Self.FK_Usuario_Rol1">
             <End Role="Rol" EntitySet="Rol" />
@@ -219,6 +275,7 @@
           <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Usuario" FromRole="Usuario" ToRole="Carrito" />
           <NavigationProperty Name="ProductoUsuario" Relationship="Self.FK_ProductoUsuario_Usuario" FromRole="Usuario" ToRole="ProductoUsuario" />
           <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Reserva" Relationship="SPADBModel.FK_Reserva_Usuario" FromRole="Usuario" ToRole="Reserva" />
         </EntityType>
         <Association Name="FK_Carrito_Producto">
           <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
@@ -314,7 +371,66 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IdRol" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Reserva" EntityType="SPADBModel.Reserva" />
+          <EntitySet Name="Servicio" EntityType="SPADBModel.Servicio" />
+          <AssociationSet Name="FK_Reserva_Servicio" Association="SPADBModel.FK_Reserva_Servicio">
+            <End Role="Servicio" EntitySet="Servicio" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Usuario" Association="SPADBModel.FK_Reserva_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="IdReserva" />
+          </Key>
+          <Property Name="IdReserva" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdServicio" Type="Int64" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="PrecioPago" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Servicio" Relationship="SPADBModel.FK_Reserva_Servicio" FromRole="Reserva" ToRole="Servicio" />
+          <NavigationProperty Name="Usuario" Relationship="SPADBModel.FK_Reserva_Usuario" FromRole="Reserva" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Servicio">
+          <Key>
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdServicio" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Duracion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reserva" Relationship="SPADBModel.FK_Reserva_Servicio" FromRole="Servicio" ToRole="Reserva" />
+          <Property Name="Imagen" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Reserva_Servicio">
+          <End Type="SPADBModel.Servicio" Role="Servicio" Multiplicity="1" />
+          <End Type="SPADBModel.Reserva" Role="Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Usuario">
+          <End Type="SPADBModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SPADBModel.Reserva" Role="Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -380,6 +496,30 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="SPADBModel.Store.RegistrarUsuario" />
+          <EntitySetMapping Name="Reserva">
+            <EntityTypeMapping TypeName="SPADBModel.Reserva">
+              <MappingFragment StoreEntitySet="Reserva">
+                <ScalarProperty Name="PrecioPago" ColumnName="PrecioPago" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+                <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicio">
+            <EntityTypeMapping TypeName="SPADBModel.Servicio">
+              <MappingFragment StoreEntitySet="Servicio">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

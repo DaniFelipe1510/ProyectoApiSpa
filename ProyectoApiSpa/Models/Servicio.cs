@@ -12,31 +12,21 @@ namespace ProyectoApiSpa.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Servicio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Servicio()
         {
-            this.Carrito = new HashSet<Carrito>();
-            this.ProductoUsuario = new HashSet<ProductoUsuario>();
             this.Reserva = new HashSet<Reserva>();
         }
     
-        public long IdUsuario { get; set; }
-        public string Correo { get; set; }
-        public string Contrasenna { get; set; }
-        public string Identificacion { get; set; }
+        public long IdServicio { get; set; }
         public string Nombre { get; set; }
-        public bool Estado { get; set; }
-        public int IdRol { get; set; }
-        public Nullable<bool> ClaveTemporal { get; set; }
-        public Nullable<System.DateTime> Caducidad { get; set; }
+        public string Descripcion { get; set; }
+        public decimal Precio { get; set; }
+        public string Duracion { get; set; }
+        public string Imagen { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carrito> Carrito { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductoUsuario> ProductoUsuario { get; set; }
-        public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reserva> Reserva { get; set; }
     }
