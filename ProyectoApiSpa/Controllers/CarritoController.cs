@@ -217,6 +217,29 @@ namespace ProyectoApiSpa.Controllers
                 return 0;
             }
         }
+        [HttpDelete]
+        [Route("api/RemoverCursoCarrito")]
+        public int RemoverCursoCarrito(long q)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var carrito = (from cc in bd.Carrito
+                               where cc.IdCarrito == q
+                               select cc).FirstOrDefault();
+
+
+
+                if (carrito != null)
+                {
+                    bd.Carrito.Remove(carrito);
+                    return bd.SaveChanges();
+                }
+
+
+
+                return 0;
+            }
+        }
 
     }
 }

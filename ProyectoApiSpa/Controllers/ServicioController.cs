@@ -43,5 +43,29 @@ namespace ProyectoApiSpa.Controllers
                 return new List<ServicioEnt>();
             }
         }
+
+        [HttpPost]
+        [Route("api/RegistrarServicio")]
+        public long RegistrarServicios(ReservaEnt entidad)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                Reserva tabla = new Reserva();
+                tabla.IdServicio = entidad.IdServicio;
+                tabla.IdUsuario = entidad.IdUsuario;
+                tabla.Fecha = entidad.Fecha;
+                tabla.Hora = entidad.Hora;
+                tabla.PrecioPago = entidad.PrecioPago;
+                tabla.Cliente = entidad.Cliente;
+
+                bd.Reserva.Add(tabla);
+                bd.SaveChanges();
+
+                return tabla.IdReserva;
+
+            }
+
+
+        }
     }
 }

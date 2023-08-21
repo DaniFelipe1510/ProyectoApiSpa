@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4102b34a048f436e8aed64222cca590c" Name="Diagram1">
-        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="5.875" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Producto" Width="1.5" PointX="7.375" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.ProductoUsuario" Width="1.5" PointX="8.875" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+      <Diagram DiagramId="becfdbe9696549068e0dff324344356a" Name="Diagram1">
+        <EntityTypeShape EntityType="SPADBModel.Carrito" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Producto" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.ProductoUsuario" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Reserva" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Rol" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SPADBModel.Usuario" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_Carrito_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="SPADBModel.FK_ProductoUsuario_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="SPADBModel.FK_Usuario_Rol" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SPADBModel.Reserva" Width="1.5" PointX="6.375" PointY="0.5" />
-        <EntityTypeShape EntityType="SPADBModel.Servicio" Width="1.5" PointX="10.625" PointY="0.5" />
-        <AssociationConnector Association="SPADBModel.FK_Reserva_Servicio" />
-        <AssociationConnector Association="SPADBModel.FK_Reserva_Usuario" />
+        <AssociationConnector Association="SPADBModel.FK_Reserva_Servicio" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Reserva_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="SPADBModel.FK_Usuario_Rol1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
