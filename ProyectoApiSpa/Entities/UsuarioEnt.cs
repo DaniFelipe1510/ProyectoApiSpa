@@ -18,5 +18,7 @@ namespace ProyectoApiSpa.Entities
         public int IdRol { get; set; }
 
         public string Token { get; set; }
+
+        public string ContrasennaNueva { get; set; }
     }
 }

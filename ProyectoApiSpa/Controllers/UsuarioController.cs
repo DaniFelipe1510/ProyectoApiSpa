@@ -13,7 +13,7 @@ namespace ProyectoApiSpa.Controllers
     [Authorize]
     public class UsuarioController : ApiController
     {
-        
+
         UtilitariosModel util = new UtilitariosModel();
         TokenGenerator tokGenerator = new TokenGenerator();
 
@@ -44,10 +44,10 @@ namespace ProyectoApiSpa.Controllers
 
                 if (datos != null)
                 {
-                  if (datos.ClaveTemporal.Value && datos.Caducidad < DateTime.Now)
-                    {
-                        return null;
-                    }
+                    //if (datos.ClaveTemporal.Value && datos.Caducidad < DateTime.Now)
+                    //  {
+                    //      return null;
+                    //  }
 
                     UsuarioEnt res = new UsuarioEnt();
                     res.Correo = datos.Correo;
@@ -66,7 +66,7 @@ namespace ProyectoApiSpa.Controllers
             }
         }
 
-       [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         [Route("api/RegistrarUsuario")]
         public int RegistrarUsuario(UsuarioEnt entidad)
@@ -94,7 +94,7 @@ namespace ProyectoApiSpa.Controllers
             //                       , entidad.Estado
             //                       , entidad.IdRol);
             //}
-            
+
 
         }
 
@@ -249,13 +249,13 @@ namespace ProyectoApiSpa.Controllers
         [Route("api/RecuperarContrasenna")]
         public bool RecuperarContrasenna(UsuarioEnt entidad)
         {
-             using (var bd = new SPADBEntities())
-             {
+            using (var bd = new SPADBEntities())
+            {
                 var datos = (from x in bd.Usuario
                              where x.Correo == entidad.Correo
                                 && x.Estado == true
                              select x).FirstOrDefault();
-                if(datos != null)
+                if (datos != null)
                 {
                     string password = util.CreatePassword();
                     datos.Contrasenna = util.Encrypt(password);
@@ -268,15 +268,38 @@ namespace ProyectoApiSpa.Controllers
                     return true;
 
                 }
-                
-                    return false;
 
-             }
-            
-          
+                return false;
+
+            }
+
+
 
         }
-        
 
-    }
+        [HttpPut]
+        [AllowAnonymous]
+        [Route("api/CambiarContrasenna")]
+        public int CambiarContrasenna(UsuarioEnt entidad)
+        {
+            
+                using (var bd = new SPADBEntities())
+                {
+                    var datos = (from x in bd.Usuario
+                                 where x.IdUsuario == entidad.IdUsuario
+                                    && x.Estado == true
+                                 select x).FirstOrDefault();
+                    if (datos != null)
+                    {
+                        datos.Contrasenna = entidad.ContrasennaNueva;
+                        datos.ClaveTemporal = false;
+                        datos.Caducidad = DateTime.Now;
+                        return bd.SaveChanges();
+
+                    }
+                    return 0;
+                }
+
+            }
+        }
 }
