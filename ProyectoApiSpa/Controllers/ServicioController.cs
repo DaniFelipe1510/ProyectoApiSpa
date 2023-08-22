@@ -112,7 +112,8 @@ namespace ProyectoApiSpa.Controllers
                                  x.Hora,
                                  x.Cliente,
                                  y.Nombre,
-                                 y.Duracion
+                                 y.Duracion,
+                                 y.Precio
                              }).ToList();
 
                 if (datos.Count > 0)
@@ -131,6 +132,7 @@ namespace ProyectoApiSpa.Controllers
                             Cliente = item.Cliente,
                             Nombre = item.Nombre,
                             Duracion = item.Duracion,
+                            Precio = item.Precio
                             
                         });
                     }

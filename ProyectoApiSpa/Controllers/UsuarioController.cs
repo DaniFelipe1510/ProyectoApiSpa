@@ -280,7 +280,6 @@ namespace ProyectoApiSpa.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
         [Route("api/CambiarContrasenna")]
         public int CambiarContrasenna(UsuarioEnt entidad)
         {
@@ -289,7 +288,7 @@ namespace ProyectoApiSpa.Controllers
                 {
                     var datos = (from x in bd.Usuario
                                  where x.IdUsuario == entidad.IdUsuario
-                                    && x.Estado == true
+                                    //&& x.Estado == true
                                  select x).FirstOrDefault();
                     if (datos != null)
                     {

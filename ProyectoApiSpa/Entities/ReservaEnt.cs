@@ -20,6 +20,7 @@ namespace ProyectoApiSpa.Entities
         public string Nombre { get; set; }
         
         public string Duracion { get; set; }
-       
+
+        public decimal Precio{ get; set; }
     }
 }
