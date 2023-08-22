@@ -141,5 +141,75 @@ namespace ProyectoApiSpa.Controllers
                 return new List<ReservaEnt>();
             }
         }
+
+        [HttpPut]
+        [Route("api/ActualizarRuta")]
+        public void ActualizarRuta(ServicioEnt entidad)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Servicio
+                             where x.IdServicio == entidad.IdServicio
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    datos.Imagen = entidad.Imagen;
+                    bd.SaveChanges();
+                }
+
+            }
+
+
+        }
+
+        [HttpPut]
+        [Route("api/ActualizarServicio")]
+        public int ActualizarServicio(ServicioEnt entidad)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Servicio
+                             where x.IdServicio == entidad.IdServicio
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    datos.Nombre = entidad.Nombre;
+                    datos.Descripcion = entidad.Descripcion;
+                    datos.Duracion = entidad.Duracion;
+                    datos.Precio = entidad.Precio;
+                    datos.Imagen = entidad.Imagen;
+                    return bd.SaveChanges();
+                }
+
+                return 0;
+
+            }
+
+
+        }
+
+
+        [HttpPost]
+        [Route("api/RegistrarMantServicio")]
+        public long RegistrarMantServicio(ServicioEnt entidad)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                Servicio tabla = new Servicio();
+                tabla.Nombre = entidad.Nombre;
+                tabla.Descripcion = entidad.Descripcion;
+                tabla.Duracion = entidad.Duracion;
+                tabla.Precio = entidad.Precio;
+                tabla.Imagen = entidad.Imagen;
+
+                bd.Servicio.Add(tabla);
+                bd.SaveChanges();
+
+                return tabla.IdServicio;
+
+            }
+
+
+        }
     }
 }
