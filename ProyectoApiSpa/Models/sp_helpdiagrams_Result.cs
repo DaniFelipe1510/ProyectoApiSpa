@@ -10,18 +10,13 @@
 namespace ProyectoApiSpa.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ProductoUsuario
+    public partial class sp_helpdiagrams_Result
     {
-        public long IdProductoUsuario { get; set; }
-        public long IdProducto { get; set; }
-        public long IdUsuario { get; set; }
-        public System.DateTime FechaPago { get; set; }
-        public Nullable<decimal> CantidadProductos { get; set; }
-        public decimal PrecioPago { get; set; }
-    
-        public virtual Producto Producto { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }
