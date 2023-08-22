@@ -44,10 +44,12 @@ namespace ProyectoApiSpa.Controllers
 
                 if (datos != null)
                 {
-                    //if (datos.ClaveTemporal.Value && datos.Caducidad < DateTime.Now)
-                    //  {
-                    //      return null;
-                    //  }
+                    if(datos.Caducidad != null && datos.Caducidad != null) { 
+                    if (datos.ClaveTemporal.Value && datos.Caducidad < DateTime.Now)
+                      {
+                          return null;
+                      }
+                    }
 
                     UsuarioEnt res = new UsuarioEnt();
                     res.Correo = datos.Correo;

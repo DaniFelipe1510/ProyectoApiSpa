@@ -44,6 +44,31 @@ namespace ProyectoApiSpa.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/ConsultarServicio")]
+        public ServicioEnt ConsultarServicio(long q)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Servicio
+                             where x.IdServicio == q
+                             select x).FirstOrDefault();
+                if (datos != null)
+                {
+                    ServicioEnt res = new ServicioEnt();
+                    res.IdServicio = datos.IdServicio;
+                    res.Nombre = datos.Nombre;
+                    res.Descripcion = datos.Descripcion;
+                    res.Duracion = datos.Duracion;
+                    res.Precio = datos.Precio;
+                    res.Imagen = datos.Imagen;
+                    return res;
+                }
+
+                return null;
+            }
+        }
+
         [HttpPost]
         [Route("api/RegistrarServicio")]
         public long RegistrarServicios(ReservaEnt entidad)
@@ -66,6 +91,55 @@ namespace ProyectoApiSpa.Controllers
             }
 
 
+        }
+
+        [HttpGet]
+        [Route("api/ConsultarMisReservas")]
+        public List<ReservaEnt> ConsultarMisReservas(long q)
+        {
+            using (var bd = new SPADBEntities())
+            {
+                var datos = (from x in bd.Reserva
+                             join y in bd.Servicio on x.IdServicio equals y.IdServicio
+                             where x.IdUsuario == q
+                             select new
+                             {
+                                 x.IdReserva,
+                                 x.IdServicio,
+                                 x.IdUsuario,
+                                 x.PrecioPago,
+                                 x.Fecha,
+                                 x.Hora,
+                                 x.Cliente,
+                                 y.Nombre,
+                                 y.Duracion
+                             }).ToList();
+
+                if (datos.Count > 0)
+                {
+                    List<ReservaEnt> res = new List<ReservaEnt>();
+                    foreach (var item in datos)
+                    {
+                        res.Add(new ReservaEnt
+                        {
+                            IdReserva = item.IdReserva,
+                            IdServicio = item.IdServicio,
+                            IdUsuario = item.IdUsuario,
+                            PrecioPago = item.PrecioPago,
+                            Fecha = item.Fecha,
+                            Hora = item.Hora,
+                            Cliente = item.Cliente,
+                            Nombre = item.Nombre,
+                            Duracion = item.Duracion,
+                            
+                        });
+                    }
+
+                    return res;
+                }
+
+                return new List<ReservaEnt>();
+            }
         }
     }
 }
